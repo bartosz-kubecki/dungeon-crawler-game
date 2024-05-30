@@ -39,9 +39,7 @@ public class GamePanel extends JLayeredPane {
                     panel.setBackground(Color.GREEN);
                 } else if (map[x][y] == 1) {
                     panel.setBackground(Color.BLACK);
-                } else if (map[x][y] == 2) {
-                    panel.setBackground(Color.DARK_GRAY);
-                } else {
+                } else if (map[x][y] <= 0) {
                     panel.setBackground(x%2 == 0 ^ y%2 == 0 ? Color.LIGHT_GRAY : null);
                 }
 

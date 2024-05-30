@@ -38,6 +38,7 @@ public class GameWindow extends JFrame {
         gamePanel.drawMap(map, size);
 
         add(gamePanel);
+        repaint();
 
         for (int y = 0; y < size; y++) {
             for (int x = 0; x < size; x++) {
@@ -49,8 +50,8 @@ public class GameWindow extends JFrame {
                     case 1:
                         tile.append("\u001B[41m ");
                         break;
-                    case 2:
-                        tile.append("\u001B[43m ");
+                    case -1:
+                        tile.append("\u001B[43m");
                         break;
                 }
                 tile.append(map[x][y]);

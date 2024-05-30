@@ -20,7 +20,6 @@ public class Player {
         this.game = game;
     }
 
-
     public void setGamePanel(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
 
@@ -98,7 +97,6 @@ public class Player {
 
         int nextX = movementQueueX.peek();
         int nextY = movementQueueY.peek();
-
 
         if (nextX != this.x && nextY != this.y) {
             if (nextX == this.x + 1 && nextY == this.y + 1) {
