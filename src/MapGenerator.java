@@ -81,7 +81,6 @@ public class MapGenerator {
         return count;
     }
 
-
     private boolean findPlayerSpawn() {
         HashMap<Integer, Integer> availableTilesX = new HashMap<>();
         HashMap<Integer, Integer> availableTilesY = new HashMap<>();
@@ -127,25 +126,6 @@ public class MapGenerator {
         return true;
     }
 
-    private int findBorderPoint() {
-        int empty = 0;
-        int bestPointValue = Integer.MAX_VALUE;
-
-        for (int x = 0; x < this.size; x++) {
-            if (map[x][0] == 0) empty++;
-            else if (empty > 0) {
-                int pointValue = Math.abs(3 - empty);
-                if (pointValue < bestPointValue) {
-                    bestPointValue = pointValue;
-                }
-                empty = 0;
-            }
-        }
-
-        System.out.printf("BPV: " + bestPointValue);
-        return 0;
-    }
-
     private void findLevelExit() {
         Random r = new Random();
 
@@ -162,24 +142,21 @@ public class MapGenerator {
         this.noiseGenerator.setSeed(new Random().nextGaussian() * 255);
 
         do {
+            this.noiseGenerator.setSeed(new Random().nextGaussian() * 255);
             this.map = generateNoise(noiseSize);
         } while (fillUnreachableTiles() < size*size/4);
-
-
+        
         findPlayerSpawn();
-
         findLevelExit();
-
 
         return map;
     }
 
     public int[][] generate(int noiseSize, int startX, int startY) {
-        this.noiseGenerator.setSeed(new Random().nextGaussian() * 255);
-
         do {
+            this.noiseGenerator.setSeed(new Random().nextGaussian() * 255);
             this.map = generateNoise(noiseSize);
-        } while (this.map[startX][startY] != 0);
+        } while (fillUnreachableTiles() < size*size/4 || this.map[startX][startY] != 0);
 
         fillUnreachableTiles();
         findLevelExit();
