@@ -31,19 +31,19 @@ public class GamePanel extends JLayeredPane {
 
         for (int y = 0; y < size; y++) {
             for (int x = 0; x < size; x++) {
-                JPanel panel = new GameTile(x, y);
-                panel.setBounds(tileSize * x,tileSize * y,tileSize,tileSize);
-                panel.addMouseListener(listener);
+                JPanel tile = new GameTile(x, y);
+                tile.setBounds(tileSize * x,tileSize * y,tileSize,tileSize);
+                tile.addMouseListener(listener);
 
                 if (map[x][y] == MapGenerator.EXIT) {
-                    panel.setBackground(Color.GREEN);
+                    tile.setBackground(Color.GREEN);
                 } else if (map[x][y] == 1) {
-                    panel.setBackground(Color.BLACK);
+                    tile.setBackground(Color.BLACK);
                 } else if (map[x][y] <= 0) {
-                    panel.setBackground(x%2 == 0 ^ y%2 == 0 ? Color.LIGHT_GRAY : null);
+                    tile.setBackground(x%2 == 0 ^ y%2 == 0 ? Color.LIGHT_GRAY : null);
                 }
 
-                add(panel, JLayeredPane.DEFAULT_LAYER);
+                add(tile, JLayeredPane.DEFAULT_LAYER);
             }
         }
     }
