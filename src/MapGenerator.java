@@ -82,26 +82,24 @@ public class MapGenerator {
     }
 
     private boolean findPlayerSpawn() {
-        HashMap<Integer, Integer> availableTilesX = new HashMap<>();
-        HashMap<Integer, Integer> availableTilesY = new HashMap<>();
+        ArrayList<Integer> availableTiles = new ArrayList<>();
 
         for (int x = 0; x < this.size; x++) {
             for (int y = 0; y < this.size; y++) {
                 if (checkTileAvailability(x, y)) {
-                    availableTilesX.put(availableTilesX.size(), x);
-                    availableTilesY.put(availableTilesY.size(), y);
+                    availableTiles.add(x*size+y);
                 }
             }
         }
 
-        if (availableTilesY.isEmpty()) {
+        if (availableTiles.isEmpty()) {
             return false;
         }
 
-        int randomTileIndex = random.nextInt(availableTilesY.size());
+        int randomTileIndex = random.nextInt(availableTiles.size());
 
-        playerX = availableTilesX.get(randomTileIndex);
-        playerY = availableTilesY.get(randomTileIndex);
+        playerX = availableTiles.get(randomTileIndex) / size;
+        playerY = availableTiles.get(randomTileIndex) % size;
 
         return true;
     }
@@ -144,9 +142,8 @@ public class MapGenerator {
         do {
             this.noiseGenerator.setSeed(new Random().nextGaussian() * 255);
             this.map = generateNoise(noiseSize);
-        } while (fillUnreachableTiles() < size*size/4);
-        
-        findPlayerSpawn();
+        } while (fillUnreachableTiles() < size*size/4 || !findPlayerSpawn());
+
         findLevelExit();
 
         return map;
